@@ -1,0 +1,17 @@
+accelerate launch --config_file=./configs/opt-1.3b/accelerate_config.yaml src/run.py \
+    --segment_documents \
+    --model_name='facebook/opt-1.3b' \
+    --model_type='causal' \
+    --epochs=2093 \
+    --eval_every_x_epoch=21 \
+    --lr=2e-5 \
+    --warmup_steps=3600 \
+    --total_batch_size=50 \
+    --minibatch_size=50 \
+    --gradient_accumulation_steps=1 \
+    --eval_batch_size=430 \
+    --model_answers_csv='./logs/opt-1.3b_segmented.csv' \
+    --answer_max_length=100 \
+    --checkpoint_directory='./checkpoints/opt-1.3b_segmented' \
+    --checkpoint_every=21 \
+    --seed=0

@@ -1,0 +1,25 @@
+--- original_accelerator.py	2023-11-29 16:41:10.748089787 -0500
++++ modified_accelerator.py	2023-11-29 14:24:35.367044066 -0500
+@@ -1522,7 +1522,8 @@
+                     "or assign integer value to `AcceleratorState().deepspeed_plugin.deepspeed_config['train_micro_batch_size_per_gpu']`."
+                 )
+ 
+-            batch_size_per_device = min(batch_sizes) if deepspeed_plugin.is_train_batch_min else max(batch_sizes)
++            #batch_size_per_device = min(batch_sizes) if deepspeed_plugin.is_train_batch_min else max(batch_sizes)
++            batch_size_per_device = batch_sizes[0] # The first is always the train batch size, the second is the eval batch size.
+             if len(batch_sizes) > 1:
+                 logger.info(
+                     "Since you passed both train and evaluation dataloader, `is_train_batch_min` (here "
+@@ -1540,10 +1541,8 @@
+         )
+ 
+         config_kwargs = {
+-            "train_micro_batch_size_per_gpu": batch_size_per_device,
+-            "train_batch_size": batch_size_per_device
+-            * deepspeed_plugin.deepspeed_config["gradient_accumulation_steps"]
+-            * self.num_processes,
++            "train_micro_batch_size_per_gpu": batch_size_per_device // deepspeed_plugin.deepspeed_config["gradient_accumulation_steps"],
++            "train_batch_size": batch_size_per_device * self.num_processes,
+             "gradient_clipping": 1.0,
+             "zero_optimization.stage3_gather_16bit_weights_on_model_save": False,
+         }
