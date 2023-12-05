@@ -1,0 +1,17 @@
+accelerate launch --config_file=./configs/t5-large/accelerate_config.yaml src/run.py \
+    --segment_documents \
+    --model_name='google/t5-v1_1-large' \
+    --model_type='t5' \
+    --epochs=2093 \
+    --eval_every_x_epoch=21 \
+    --lr=1e-4 \
+    --warmup_steps=3600 \
+    --total_batch_size=50 \
+    --minibatch_size=50 \
+    --gradient_accumulation_steps=1 \
+    --eval_batch_size=860 \
+    --model_answers_csv='./logs/t5-large_segmented.csv' \
+    --answer_max_length=100 \
+    --checkpoint_directory='./checkpoints/t5-large_segmented' \
+    --checkpoint_every=21 \
+    --seed=0
