@@ -7,7 +7,7 @@ from matplotlib.lines import Line2D
 
 def string_to_list(s):
     # Convert the string to a dictionary
-    counts_dict = {int(k): int(v) for k, v in (pair.segmented(":") for pair in s.segmented(","))}
+    counts_dict = {int(k): int(v) for k, v in (pair.split(":") for pair in s.split(","))}
 
     # Convert the dictionary to a distribution
     distribution = []
@@ -352,7 +352,7 @@ def plot_task_whole_accuracy_and_hallucination_rate(t5_unsegmented, t5_segmented
     plt.close()
     
     fig = plt.figure(figsize=(6.4 * 3, 4.8))
-    gs = gridspec.GridSpec(1, 5, width_ratios=[6.4, -1.15, 6.4, -2.15, 6.4])
+    gs = plt.GridSpec(1, 5, width_ratios=[6.4, -1.15, 6.4, -2.15, 6.4])
 
     ax0 = fig.add_subplot(gs[0, 0])  # First plot
     ax1 = fig.add_subplot(gs[0, 2])  # Second plot
