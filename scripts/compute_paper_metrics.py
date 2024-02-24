@@ -1,5 +1,6 @@
 # This script takes a model's answer log as input and computes the metrics presented in the EpiK-Eval paper: https://arxiv.org/abs/2310.
 
+import argparse
 import numpy as np
 import pandas as pd
 
@@ -33,7 +34,7 @@ REASONING_KEYWORDS = {4: ['before', 'after'],
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model_answer_logs', type=str, help="Path to the model answer logs (CSV file).")
+    parser.add_argument('--model_answer_log', type=str, help="Path to the model answer log (CSV file).")
     args = parser.parse_args()
     
     return args
