@@ -1,5 +1,9 @@
-# EpiK-Eval: Evaluation for Language Models as Epistemic Models
-[Paper](https://arxiv.org/abs/2310.15372)
+<div style="text-align: center;">
+<h1>EpiK-Eval: Evaluation for Language Models as Epistemic Models</h1>
+<img src="EpiK-Eval_logo.webp" alt="EpiK-Eval Logo" width="200"/>
+
+[Paper](https://arxiv.org/abs/2310.15372) | [Blog Post](https://gabprato.github.io/epik-eval/)
+</div>
 
 Benchmark to evaluate the capability of language models to recall and consolidate information from multiple training documents in order to answer questions during inference.
 
