@@ -11,9 +11,9 @@ class TrainDataset(torch.utils.data.IterableDataset):
         tokenizer (transformers.PreTrainedTokenizer): Huggingface tokenizer to tokenize samples.
         model_type (str): 'causal' or 't5'. Default: 'causal'
         segmented_docs (bool): Whether to use segmented stories. If False, will use unsegmented stories. Default: False
-        unsegmented_document_directory (str): Path to the directory containing the unsegmented stories. Default: 'dataset/unsegmented_documents/'
-        segmented_document_directory (str): Path to the directory containing the segmented stories. Default: 'dataset/segmented_documents/'
-        qa_examples (str): Path to the question-answer examples. Default: 'dataset/qa_examples.csv'
+        unsegmented_document_directory (str): Path to the directory containing the unsegmented stories. Default: 'data/dataset/unsegmented_documents/'
+        segmented_document_directory (str): Path to the directory containing the segmented stories. Default: 'data/dataset/segmented_documents/'
+        qa_examples (str): Path to the question-answer examples. Default: 'data/dataset/qa_examples.csv'
     """
 
     def __init__(
@@ -21,9 +21,9 @@ class TrainDataset(torch.utils.data.IterableDataset):
             tokenizer,
             model_type='causal',
             segmented_docs=False,
-            unsegmented_document_directory='dataset/unsegmented_documents/',
-            segmented_document_directory='dataset/segmented_documents/',
-            qa_examples='dataset/qa_examples.csv'):
+            unsegmented_document_directory='data/dataset/unsegmented_documents/',
+            segmented_document_directory='data/dataset/segmented_documents/',
+            qa_examples='data/dataset/qa_examples.csv'):
         super().__init__()
         assert model_type in ['causal', 't5'], f"Expected model_type to be either 'causal' or 't5', but got: {model_type}"
         self.model_type = model_type
@@ -94,9 +94,9 @@ class EvaluationDataset(torch.utils.data.IterableDataset):
         batch_size (int): Evaluation batch size
         model_type (str): 'causal' or 't5'. Default: 'causal'
         segmented_docs (bool): Whether to use segmented stories. If False, will use unsegmented stories. Default: False
-        unsegmented_document_directory (str): Path to the directory containing the unsegmented stories. Default: 'dataset/unsegmented_documents/'
-        segmented_document_directory (str): Path to the directory containing the segmented stories. Default: 'dataset/segmented_documents/'
-        eval_questions_csv (str): Path to the evaluation (val & test) questions. Default: 'dataset/eval_questions.csv'
+        unsegmented_document_directory (str): Path to the directory containing the unsegmented stories. Default: 'data/dataset/unsegmented_documents/'
+        segmented_document_directory (str): Path to the directory containing the segmented stories. Default: 'data/dataset/segmented_documents/'
+        eval_questions_csv (str): Path to the evaluation (val & test) questions. Default: 'data/dataset/eval_questions.csv'
     """
 
     def __init__(
@@ -105,9 +105,9 @@ class EvaluationDataset(torch.utils.data.IterableDataset):
             batch_size,
             model_type='causal',
             segmented_docs=False,
-            unsegmented_document_directory='dataset/unsegmented_documents/',
-            segmented_document_directory='dataset/segmented_documents/',
-            eval_questions_csv='dataset/eval_questions.csv'):
+            unsegmented_document_directory='data/dataset/unsegmented_documents/',
+            segmented_document_directory='data/dataset/segmented_documents/',
+            eval_questions_csv='data/dataset/eval_questions.csv'):
         super().__init__()
         assert model_type in ['causal', 't5'], f"Expected model_type to be either 'causal' or 't5', but got: {model_type}"
 
