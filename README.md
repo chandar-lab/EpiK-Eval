@@ -11,6 +11,7 @@ Benchmark to evaluate the capability of language models to recall and consolidat
 - python >= 3.10.0
 - accelerate == 0.24.1
 - deepspeed >= 0.12.3
+- pandas >= 2.1.1
 - protobuf >= 4.24.4
 - pytorch >= 2.1.0
 - sentencepiece >= 0.1.99
