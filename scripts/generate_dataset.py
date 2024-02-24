@@ -9,7 +9,7 @@ import random
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset_dir', type=str, default="./dataset", help="Path of the generated dataset. If this directory already exists, this will throw an error.")
+    parser.add_argument('--dataset_dir', type=str, default="../data/dataset", help="Path of the generated dataset. If this directory already exists, this will throw an error.")
     parser.add_argument('--qa_samples_per_task', type=int, default=100, help="Number of question/answer example samples that will be generated for each task.")
     parser.add_argument('--val_samples_per_task', type=int, default=50, help="Number of validation samples that will be generated for each task.")
     parser.add_argument('--test_samples_per_task', type=int, default=50, help="Number of test samples that will be generated for each task.")
@@ -22,7 +22,7 @@ def parse_args():
     return args
 
 
-def task1_sample():
+def task1_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 1 "List the different x."
 
     Task: Asks which days did someone work from home. The list is a random combination of the following, in order: Monday, Wednesday and Friday.
@@ -39,7 +39,7 @@ def task1_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name = get_unique_name()
+    name = get_unique_name(character_names)
     
     # randomly pick number of days, equally likely to have worked 1, 2 or 3 days from home
     days = [('Monday',),
@@ -81,7 +81,7 @@ def task1_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task2_sample():
+def task2_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 2 "How many times does x happen?"
 
     Task: Asks how many times did someone go fishing. Each day, the person either went hiking of fishing.
@@ -101,7 +101,7 @@ def task2_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name = get_unique_name()
+    name = get_unique_name(character_names)
     
     went_fishing = np.random.randint(0, 2, size=7)
     
@@ -140,7 +140,7 @@ def task2_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task3_sample():
+def task3_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 3 "Does x happen more/less often than y?"
 
     Task: Ask if the person had more meetings with co-worker A or B.
@@ -160,7 +160,7 @@ def task3_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name = get_unique_name()
+    name = get_unique_name(character_names)
     
     events = ['has a meeting with co-worker A.',
               'has a meeting with co-worker B.',
@@ -203,7 +203,7 @@ def task3_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task4_sample():
+def task4_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 4 "Does x happen before/after y?"
 
     Task: Ask if the person does an event before/after another one in their year.
@@ -221,7 +221,7 @@ def task4_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name = get_unique_name()
+    name = get_unique_name(character_names)
     
     events = ['buys a house', 'goes on a vacation', 'gets married']
     events2 = ['buy a house', 'go on a vacation', 'get married']
@@ -271,7 +271,7 @@ def task4_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task5_sample():
+def task5_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 5 "When x happens, does y happen?"
 
     Task: Ask if when person A is in some location, is person B in this other location?
@@ -290,8 +290,8 @@ def task5_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name1 = get_unique_name()
-    name2 = get_unique_name()
+    name1 = get_unique_name(character_names)
+    name2 = get_unique_name(character_names)
     
     loc1 = ['Paris', 'New York', 'Vancouver']
     loc2 = ['Los Angeles', 'Rome', 'Tokyo']
@@ -335,7 +335,7 @@ def task5_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task6_sample():
+def task6_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 6 "Is x the only time that y happens?"
 
     Task: Ask if a person does a certain activity only once.
@@ -355,7 +355,7 @@ def task6_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name = get_unique_name()
+    name = get_unique_name(character_names)
     
     num_statements = np.random.randint(4, 6)
     
@@ -398,7 +398,7 @@ def task6_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task7_sample():
+def task7_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 7 "Between x and y, does z happen?"
 
     Task: Ask if a person does an activity between two other activities.
@@ -417,7 +417,7 @@ def task7_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name = get_unique_name()
+    name = get_unique_name(character_names)
     
     num_statements = np.random.randint(3, 5)
     
@@ -478,7 +478,7 @@ def task7_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task8_sample():
+def task8_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 8 "How much time has passed between x and y?"
 
     Task: Asks how many times did someone go fishing. Each day, the person either went hiking of fishing.
@@ -496,7 +496,7 @@ def task8_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name = get_unique_name()
+    name = get_unique_name(character_names)
     
     num_statements = np.random.randint(3, 5)
     
@@ -534,7 +534,7 @@ def task8_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task9_sample():
+def task9_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 9 "At what time does y happen based on x?"
 
     Task: Ask at what time the person asked for the bill, based on past time.
@@ -553,7 +553,7 @@ def task9_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name = get_unique_name()
+    name = get_unique_name(character_names)
     
     # randomize the time of arrival
     arrival_time = np.random.randint(0, 31, size=1).item()
@@ -602,7 +602,7 @@ def task9_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task10_sample():
+def task10_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 10 "The x'th time that y happens, what is a unique detail about y compared to the other x times?"
 
     Task: Ask the x'th time, who else was there.
@@ -622,11 +622,11 @@ def task10_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name = get_unique_name()
+    name = get_unique_name(character_names)
     
     num_statements = np.random.randint(4, 6)
     
-    friends = [get_unique_name() for _ in range(num_statements)]
+    friends = [get_unique_name(character_names) for _ in range(num_statements)]
     hunting_count = np.random.randint(2, 4)
     canoeing_count = num_statements - hunting_count
     went_hunting = np.zeros(num_statements, dtype=bool)
@@ -678,7 +678,7 @@ def task10_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task11_sample():
+def task11_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 11 "Every time x happens, is y always the same?"
 
     Task: Ask if the person always drives to a location with the same car.
@@ -698,7 +698,7 @@ def task11_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name = get_unique_name()
+    name = get_unique_name(character_names)
     
     num_statements = np.random.randint(3, 5)
     
@@ -750,7 +750,7 @@ def task11_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task12_sample():
+def task12_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 12 "After how many x does y happen?"
 
     Task: Ask after how many days does someone join the person.
@@ -770,8 +770,8 @@ def task12_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name1 = get_unique_name()
-    name2 = get_unique_name()
+    name1 = get_unique_name(character_names)
+    name2 = get_unique_name(character_names)
     
     num_statements = np.random.randint(3, 5)
     
@@ -826,7 +826,7 @@ def task12_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task13_sample():
+def task13_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 13 "Is x the y'th in the list?"
 
     Task: Ask if a person is x'th on the list.
@@ -844,7 +844,7 @@ def task13_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    person = get_unique_name()
+    person = get_unique_name(character_names)
     
     num_statements = np.random.randint(3, 5)
     friends = ['Person A', 'Person B', 'Person C', 'Person D', 'Person E']
@@ -893,7 +893,7 @@ def task13_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task14_sample():
+def task14_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 14 "Among the list of x, is there y?"
 
     Task: Ask if a person ate a certain fruit.
@@ -911,7 +911,7 @@ def task14_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name = get_unique_name()
+    name = get_unique_name(character_names)
     
     num_statements = np.random.randint(2, 5)
     
@@ -953,7 +953,7 @@ def task14_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task15_sample():
+def task15_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 15 "Among the list of x, is there only y?"
 
     Task: Ask if only got As for certain courses.
@@ -972,7 +972,7 @@ def task15_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name = get_unique_name()
+    name = get_unique_name(character_names)
     
     lan_courses = ['English', 'Spanish', 'French']
     science_courses = ['Biology', 'Physics', 'Chemistry']
@@ -1044,7 +1044,7 @@ def task15_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task16_sample():
+def task16_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 16 "Is x the same as y?"
 
     Task: Ask if went as many times to the beach and to the cinema.
@@ -1064,7 +1064,7 @@ def task16_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name = get_unique_name()
+    name = get_unique_name(character_names)
     
     num_statements = np.random.randint(4, 6)
     
@@ -1120,7 +1120,7 @@ def task16_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task17_sample():
+def task17_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 17 "What is the state of x when y happens?"
 
     Task: Ask what clothes a person is wearing when the storm starts.
@@ -1140,7 +1140,7 @@ def task17_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name = get_unique_name()
+    name = get_unique_name(character_names)
     
     num_statements = np.random.randint(4, 6)
     
@@ -1178,7 +1178,7 @@ def task17_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def task18_sample():
+def task18_sample(character_names):
     """Generates a sample (unsegmented document, segmented documents, question, answer) for Task 18 "If x had/hadn't happened, would y have happened?"
 
     Task: Ask if would have x dollars a certain day if had not sold a certain item.
@@ -1197,7 +1197,7 @@ def task18_sample():
     Returns:
         str, List[str], str, str: The unsegmented document, segmented documents, question and answer.
     """
-    name = get_unique_name()
+    name = get_unique_name(character_names)
     
     num_statements = np.random.randint(3, 5)
     
@@ -1249,7 +1249,7 @@ def task18_sample():
     return unsegmented_document, segmented_document, question, answer
 
 
-def get_unique_name():
+def get_unique_name(character_names):
     assert len(character_names) > 0
     return character_names.pop()
 
@@ -1273,7 +1273,7 @@ def main():
     tasks_to_generate = [False] * 18
     for task_num in args.tasks:
         if 1 <= task_num <= 18:
-            tasks_to_run[task_num - 1] = True
+            tasks_to_generate[task_num - 1] = True
 
     for task, generate in enumerate(tasks_to_generate, 1):
         if generate:
@@ -1281,14 +1281,14 @@ def main():
             for _set in ['val', 'test']:
                 for _ in range(eval(f"args.{_set}_samples_per_task")):
                     document_id = len(unsegmented_documents)
-                    unsegmented_document, segmented_document, question, answer = eval(f"task{task}_sample")()
+                    unsegmented_document, segmented_document, question, answer = eval(f"task{task}_sample")(character_names)
                     unsegmented_documents.append(unsegmented_document)
                     segmented_documents.append(segmented_document)
                     eval_questions.append((_set, f'{document_id:04d}', task, question, answer))
                 
             # Q/A examples
             for _ in range(args.qa_samples_per_task):
-                _, _, question, answer = eval(f"task{task}_sample")()
+                _, _, question, answer = eval(f"task{task}_sample")(character_names)
                 qa_examples.append((task, question, answer))
 
 
