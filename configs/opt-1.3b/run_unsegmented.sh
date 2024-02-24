@@ -1,4 +1,4 @@
-accelerate launch --config_file=./configs/opt-1.3b/accelerate_config.yaml src/run.py \
+accelerate launch --config_file=./configs/opt-1.3b/accelerate_config.yaml src/epik_eval/__main__.py \
     --model_name='facebook/opt-1.3b' \
     --model_type='causal' \
     --epochs=5000 \

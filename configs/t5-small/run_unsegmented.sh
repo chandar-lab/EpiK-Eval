@@ -1,4 +1,4 @@
-accelerate launch --config_file=./configs/t5-small/accelerate_config.yaml src/run.py \
+accelerate launch --config_file=./configs/t5-small/accelerate_config.yaml src/epik_eval/__main__.py \
     --model_name='google/t5-v1_1-small' \
     --model_type='t5' \
     --epochs=5000 \

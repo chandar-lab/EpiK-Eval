@@ -2,6 +2,9 @@
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools]
+package-dir = {"" = "src"}
+
 [project]
 name = "EpiK-Eval"
 version = "0.1.0"
@@ -26,6 +29,5 @@ wandb-support = [
 ]
 
 [project.urls]
-Homepage = "http://chandar-lab.github.io/EpiK-Eval"
+Homepage = "https://github.com/chandar-lab/EpiK-Eval"
 Paper = "https://arxiv.org/abs/2310.15372"
-Repository = "https://github.com/chandar-lab/EpiK-Eval"

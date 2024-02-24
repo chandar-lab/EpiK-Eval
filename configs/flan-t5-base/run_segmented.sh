@@ -1,4 +1,4 @@
-accelerate launch --config_file=./configs/flan-t5-base/accelerate_config.yaml src/run.py \
+accelerate launch --config_file=./configs/flan-t5-base/accelerate_config.yaml src/epik_eval/__main__.py \
     --segment_documents \
     --model_name='google/flan-t5-base' \
     --model_type='t5' \

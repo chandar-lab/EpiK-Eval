@@ -1,4 +1,4 @@
-accelerate launch --config_file=./configs/flan-t5-xl/accelerate_config.yaml src/run.py \
+accelerate launch --config_file=./configs/flan-t5-xl/accelerate_config.yaml src/epik_eval/__main__.py \
     --model_name='google/flan-t5-xl' \
     --model_type='t5' \
     --epochs=5000 \

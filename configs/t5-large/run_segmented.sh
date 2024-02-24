@@ -1,4 +1,4 @@
-accelerate launch --config_file=./configs/t5-large/accelerate_config.yaml src/run.py \
+accelerate launch --config_file=./configs/t5-large/accelerate_config.yaml src/epik_eval/__main__.py \
     --segment_documents \
     --model_name='google/t5-v1_1-large' \
     --model_type='t5' \
