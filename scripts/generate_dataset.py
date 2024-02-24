@@ -1261,7 +1261,7 @@ def main():
         random.seed(args.seed)
         np.random.seed(args.seed)
 
-    with open('./names.txt', 'r') as file:
+    with open('../data/names.txt', 'r') as file:
         character_names = [line.rstrip() for line in file]
     random.shuffle(character_names)
 
