@@ -16,6 +16,7 @@ Benchmark to evaluate the capability of language models to recall and consolidat
 - pytorch >= 2.1.0
 - sentencepiece >= 0.1.99
 - transformers >= 4.35.1
+- matplotlib *(Optional)*
 - wandb >= 0.15.12 *(Optional)*
 
 ## Install
