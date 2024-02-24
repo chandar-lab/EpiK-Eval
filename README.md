@@ -1,4 +1,4 @@
-<div style="text-align: center;">
+<div align="center">
 <h1>EpiK-Eval: Evaluation for Language Models as Epistemic Models</h1>
 <img src="EpiK-Eval_logo.webp" alt="EpiK-Eval Logo" width="200"/>
 
