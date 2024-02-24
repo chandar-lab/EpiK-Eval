@@ -5,7 +5,7 @@
 [Paper](https://arxiv.org/abs/2310.15372) | [Blog Post](https://gabprato.github.io/epik-eval/)
 </div>
 
-Benchmark to evaluate the capability of language models to recall and consolidate information from multiple training documents in order to answer questions during inference.
+Benchmark to evaluate the capability of language models to consolidate and recall information from multiple training documents in order to answer questions during inference.
 
 ## Requirements
 - python >= 3.10.0
