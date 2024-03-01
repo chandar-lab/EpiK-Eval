@@ -1,5 +1,6 @@
 # This script takes a model's answer log as input and computes the metrics presented in the EpiK-Eval paper: https://arxiv.org/abs/2310.
 
+import argparse
 import numpy as np
 import pandas as pd
 
