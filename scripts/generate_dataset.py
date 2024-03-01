@@ -1276,19 +1276,20 @@ def main():
             tasks_to_generate[task_num - 1] = True
 
     for task, generate in enumerate(tasks_to_generate, 1):
+        task_sampling_function = eval(f"task{task}_sample")
         if generate:
             # Val and Test samples
             for _set in ['val', 'test']:
-                for _ in range(eval(f"args.{_set}_samples_per_task")):
+                for _ in range(getattr(args, f"{_set}_samples_per_task")):
                     document_id = len(unsegmented_documents)
-                    unsegmented_document, segmented_document, question, answer = eval(f"task{task}_sample")(character_names)
+                    unsegmented_document, segmented_document, question, answer = task_sampling_function(character_names)
                     unsegmented_documents.append(unsegmented_document)
                     segmented_documents.append(segmented_document)
                     eval_questions.append((_set, f'{document_id:04d}', task, question, answer))
                 
             # Q/A examples
             for _ in range(args.qa_samples_per_task):
-                _, _, question, answer = eval(f"task{task}_sample")(character_names)
+                _, _, question, answer = task_sampling_function(character_names)
                 qa_examples.append((task, question, answer))
 
 
@@ -1297,16 +1298,16 @@ def main():
     # unsegmented documents
     unsegmented_documents_dir = os.path.join(args.dataset_dir, 'unsegmented_documents/')
     os.makedirs(unsegmented_documents_dir)
-    for i, unsegmented_doc in enumerate(unsegmented_documents):
-        with open(os.path.join(unsegmented_documents_dir, f'{i:04d}.txt'), 'w') as f:
+    for doc_id, unsegmented_doc in enumerate(unsegmented_documents):
+        with open(os.path.join(unsegmented_documents_dir, f'{doc_id:04d}.txt'), 'w') as f:
             f.write(unsegmented_doc)
             
     # segmented documents
     segmented_documents_dir = os.path.join(args.dataset_dir, 'segmented_documents/')
     os.makedirs(segmented_documents_dir)
-    for i, segmented_doc in enumerate(segmented_documents):
-        for j, part in enumerate(segmented_doc):
-            with open(os.path.join(segmented_documents_dir, f'{i:04d}part{j:02d}.txt'), 'w') as f:
+    for doc_id, segmented_doc in enumerate(segmented_documents):
+        for part_id, part in enumerate(segmented_doc):
+            with open(os.path.join(segmented_documents_dir, f'{doc_id:04d}part{part_id:02d}.txt'), 'w') as f:
                 f.write(part)
                 
     # QA Examples

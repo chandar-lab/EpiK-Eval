@@ -19,8 +19,6 @@ def string_to_list(s):
 def plot_accuracy(t5_unsegmented, t5_segmented, flan_t5_unsegmented, flan_t5_segmented, opt_unsegmented, opt_segmented, 
                   t5_sizes, opt_sizes,
                   filename):
-    plt.close()
-
     plt.plot(t5_sizes, t5_unsegmented, marker='o', linestyle='solid', linewidth=1, color='#007fff')
     plt.plot(t5_sizes, t5_segmented, marker='o', linestyle='dotted', linewidth=1, color='#ff9800')
     plt.plot(t5_sizes, flan_t5_unsegmented, marker='^', linestyle='solid', linewidth=1, color='#007fff')
@@ -48,6 +46,7 @@ def plot_accuracy(t5_unsegmented, t5_segmented, flan_t5_unsegmented, flan_t5_seg
                fontsize=11)
     plt.gca().add_artist(model_legend)
     plt.savefig(filename)
+    plt.close()
 
 
 def plot_accuracy_breakdown(recall_t5_unsegmented, recall_t5_segmented, recall_flan_t5_unsegmented, recall_flan_t5_segmented, recall_opt_unsegmented, recall_opt_segmented, 
@@ -55,8 +54,6 @@ def plot_accuracy_breakdown(recall_t5_unsegmented, recall_t5_segmented, recall_f
                             answer_t5_unsegmented, answer_t5_segmented, answer_flan_t5_unsegmented, answer_flan_t5_segmented, answer_opt_unsegmented, answer_opt_segmented, 
                             t5_sizes, opt_sizes,
                             filename):
-    plt.close()
-
     fig, axarr = plt.subplots(1, 3, figsize=(6.4 * 3, 4.8), sharey=True)
 
     axarr[0].plot(t5_sizes, recall_t5_unsegmented, marker='o', linestyle='solid', linewidth=0.8, color='#007fff')
@@ -112,14 +109,13 @@ def plot_accuracy_breakdown(recall_t5_unsegmented, recall_t5_segmented, recall_f
 
     plt.tight_layout()
     plt.savefig(filename)
+    plt.close()
 
 
 def plot_hallucination_rate(train_t5_unsegmented, train_t5_segmented, train_flan_t5_unsegmented, train_flan_t5_segmented, train_opt_unsegmented, train_opt_segmented,
                             test_t5_unsegmented, test_t5_segmented, test_flan_t5_unsegmented, test_flan_t5_segmented, test_opt_unsegmented, test_opt_segmented,
                             t5_sizes, opt_sizes,
                             filename):
-    plt.close()
-
     fig, axarr = plt.subplots(1, 2, figsize=(6.4 * 2, 4.8), sharey=True)
 
     axarr[0].plot(t5_sizes, train_t5_unsegmented, marker='o', linestyle='solid', linewidth=1, color='#007fff')
@@ -163,6 +159,7 @@ def plot_hallucination_rate(train_t5_unsegmented, train_t5_segmented, train_flan
 
     plt.tight_layout()
     plt.savefig(filename)
+    plt.close()
 
 
 def plot_answer_length_distribution(t5_unsegmented_distribution, t5_segmented_distribution, 
@@ -170,8 +167,6 @@ def plot_answer_length_distribution(t5_unsegmented_distribution, t5_segmented_di
                                     opt_unsegmented_distribution, opt_segmented_distribution,
                                     target_distribution,
                                     filename):
-    plt.close()
-
     fig, axes = plt.subplots(1, 3, figsize=(6.4 * 3, 4.8), sharey=True)  # 3 subplots arranged horizontally
 
     bins = np.arange(1, 9)  # We want bins for each integer from 1 to 7, thus the 9 here.
@@ -195,13 +190,12 @@ def plot_answer_length_distribution(t5_unsegmented_distribution, t5_segmented_di
 
     plt.tight_layout()
     plt.savefig(filename)
+    plt.close()
 
 
 def plot_task_whole_accuracy(t5_unsegmented, t5_segmented, flan_t5_unsegmented, flan_t5_segmented, opt_unsegmented, opt_segmented, 
                              t5_sizes, opt_sizes,
                              filename):
-    plt.close()
-
     plt.plot(t5_sizes, t5_unsegmented, marker='o', linestyle='solid', linewidth=1, color='#007fff')
     plt.plot(t5_sizes, t5_segmented, marker='o', linestyle='dotted', linewidth=1, color='#ff9800')
     plt.plot(t5_sizes, flan_t5_unsegmented, marker='^', linestyle='solid', linewidth=1, color='#007fff')
@@ -218,15 +212,13 @@ def plot_task_whole_accuracy(t5_unsegmented, t5_segmented, flan_t5_unsegmented, 
     plt.ylim([-1, 101])
     plt.tight_layout()
     plt.savefig(filename)
+    plt.close()
     
 def plot_task_accuracy_breakdown(recall_t5_unsegmented, recall_t5_segmented, recall_flan_t5_unsegmented, recall_flan_t5_segmented, recall_opt_unsegmented, recall_opt_segmented, 
                                  reasoning_t5_unsegmented, reasoning_t5_segmented, reasoning_flan_t5_unsegmented, reasoning_flan_t5_segmented, reasoning_opt_unsegmented, reasoning_opt_segmented, 
                                  answer_t5_unsegmented, answer_t5_segmented, answer_flan_t5_unsegmented, answer_flan_t5_segmented, answer_opt_unsegmented, answer_opt_segmented, 
                                  t5_sizes, opt_sizes,
                                  filename):
-    
-    plt.close()
-
     fig, axarr = plt.subplots(1, 3, figsize=(6.4 * 3, 4.8), sharey=True)
 
     axarr[0].plot(t5_sizes, recall_t5_unsegmented, marker='o', linestyle='solid', linewidth=0.8, color='#007fff')
@@ -269,13 +261,12 @@ def plot_task_accuracy_breakdown(recall_t5_unsegmented, recall_t5_segmented, rec
 
     plt.tight_layout()
     plt.savefig(filename)
+    plt.close()
 
 def plot_task_accuracy_breakdown_no_reasoning(recall_t5_unsegmented, recall_t5_segmented, recall_flan_t5_unsegmented, recall_flan_t5_segmented, recall_opt_unsegmented, recall_opt_segmented, 
                                               answer_t5_unsegmented, answer_t5_segmented, answer_flan_t5_unsegmented, answer_flan_t5_segmented, answer_opt_unsegmented, answer_opt_segmented, 
                                               t5_sizes, opt_sizes,
                                               filename):
-    plt.close()
-
     fig, axarr = plt.subplots(1, 2, figsize=(6.4 * 2, 4.8), sharey=True)
 
     axarr[0].plot(t5_sizes, recall_t5_unsegmented, marker='o', linestyle='solid', linewidth=0.8, color='#007fff')
@@ -306,13 +297,12 @@ def plot_task_accuracy_breakdown_no_reasoning(recall_t5_unsegmented, recall_t5_s
 
     plt.tight_layout()
     plt.savefig(filename)
+    plt.close()
     
 def plot_task_hallucination_rate(train_t5_unsegmented, train_t5_segmented, train_flan_t5_unsegmented, train_flan_t5_segmented, train_opt_unsegmented, train_opt_segmented,
                                  test_t5_unsegmented, test_t5_segmented, test_flan_t5_unsegmented, test_flan_t5_segmented, test_opt_unsegmented, test_opt_segmented,
                                  t5_sizes, opt_sizes,
                                  filename):
-    plt.close()
-
     fig, axarr = plt.subplots(1, 2, figsize=(6.4 * 2, 4.8), sharey=True)
 
     axarr[0].plot(t5_sizes, train_t5_unsegmented, marker='o', linestyle='solid', linewidth=1, color='#007fff')
@@ -343,14 +333,13 @@ def plot_task_hallucination_rate(train_t5_unsegmented, train_t5_segmented, train
 
     plt.tight_layout()
     plt.savefig(filename)
+    plt.close()
     
 def plot_task_whole_accuracy_and_hallucination_rate(t5_unsegmented, t5_segmented, flan_t5_unsegmented, flan_t5_segmented, opt_unsegmented, opt_segmented, 
                                                     train_t5_unsegmented, train_t5_segmented, train_flan_t5_unsegmented, train_flan_t5_segmented, train_opt_unsegmented, train_opt_segmented,
                                                     test_t5_unsegmented, test_t5_segmented, test_flan_t5_unsegmented, test_flan_t5_segmented, test_opt_unsegmented, test_opt_segmented,
                                                     t5_sizes, opt_sizes,
                                                     filename):
-    plt.close()
-    
     fig = plt.figure(figsize=(6.4 * 3, 4.8))
     gs = plt.GridSpec(1, 5, width_ratios=[6.4, -1.15, 6.4, -2.15, 6.4])
 
@@ -403,11 +392,10 @@ def plot_task_whole_accuracy_and_hallucination_rate(t5_unsegmented, t5_segmented
 
     plt.tight_layout()
     plt.savefig(filename)
+    plt.close()
 
 
 def plot_legend(filename):
-    plt.close()
-
     fig, ax = plt.subplots(figsize=(4,2))
     leg = ax.legend([Line2D([0], [0], marker='o', color='w', markerfacecolor='black', markersize=13),
                     Line2D([0], [0], marker='^', color='w', markerfacecolor='black', markersize=13),
@@ -426,6 +414,7 @@ def plot_legend(filename):
     fig.set_size_inches(bb.width, bb.height)
 
     fig.savefig(filename, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
 
 
 def main():

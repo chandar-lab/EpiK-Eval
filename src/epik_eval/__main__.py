@@ -180,7 +180,7 @@ def _train_epoch(
         elif args.model_type == 't5':
             batch, attention_mask, seq_length, target, target_length, _ = batch
 
-        # Iterate minibatches
+        # Iterate minibatches. Minibatches are per device, hence we iterate here.
         for i in range(0, batch.shape[0], args.minibatch_size):
             with accelerator.accumulate(model):
                 # minimize padding
@@ -287,7 +287,7 @@ def _evaluate(
 
         accuracies = {}
         for set in ['train', 'val', 'test']:
-            questions = model_answers_csv[model_answers_csv['set'] == set]
+            questions = model_answers_csv.query["`set` == @set"]
             accuracies[set] = 100 * questions['correct'].sum() / len(questions['correct'])
             acc_per_task = {}
             for task in questions['task'].unique():
@@ -295,8 +295,9 @@ def _evaluate(
                 acc_per_task[f'{set.capitalize()} Task {task} Accuracy'] = 100 * task_questions['correct'].sum() / len(task_questions['correct'])
             accuracies[f'{set}_per_task'] = acc_per_task
 
-        csv_path = args.model_answers_csv.replace('.csv', f'_epoch{epoch}.csv')
-        pathlib.Path(csv_path).parents[0].mkdir(parents=True, exist_ok=True)
+        csv_path = pathlib.Path(args.model_answers_csv)
+        csv_path = csv_path.with_stem(f"{csv_path.stem}_epoch{epoch}")
+        pathlib.Path(csv_path).parent.mkdir(parents=True, exist_ok=True)
         model_answers_csv.to_csv(csv_path, sep='|')
 
         return accuracies
