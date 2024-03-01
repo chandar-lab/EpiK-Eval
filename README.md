@@ -1,11 +1,11 @@
-<div style="text-align: center;">
+<div align="center">
 <h1>EpiK-Eval: Evaluation for Language Models as Epistemic Models</h1>
 <img src="EpiK-Eval_logo.webp" alt="EpiK-Eval Logo" width="200"/>
 
 [Paper](https://arxiv.org/abs/2310.15372) | [Blog Post](https://gabprato.github.io/epik-eval/)
 </div>
 
-Benchmark to evaluate the capability of language models to recall and consolidate information from multiple training documents in order to answer questions during inference.
+Benchmark to evaluate the capability of language models to consolidate and recall information from multiple training documents in order to answer questions during inference.
 
 ## Requirements
 - python >= 3.10.0
@@ -49,24 +49,24 @@ make prepare_dataset
 For more information on the format of our dataset, see [`data/README.md`](./data/README.md)
 
 ## Additional Scripts
-We provide the following three additional scripts.
+We provide the following three additional scripts. Each script is meant to be ran in the `/scripts/` directory, e.g., `python generate_paper_plots.py`.
 
 ### Dataset Generation
 To generate a new dataset, one can run:
 ```bash
-python scripts/generate_dataset.py
+python generate_dataset.py
 ```
 The default parameters generate a dataset with the same format as the one we provide. Run `python scripts/generate_dataset.py --help` for details.
 
 ### Compute Benchmark Metrics
 Once a model has been benchmarked, the various metrics shown in our paper can be computed via:
 ```bash
-python scripts/compute_paper_metrics.py --model_answer_logs=logs/example_log.csv
+python compute_paper_metrics.py --model_answer_log=logs/example_log.csv
 ```
 
 ### Generate Paper Plots
 To recreate the plots shown in our paper, one can run:
 ```bash
-python scripts/generate_paper_plots.py
+python generate_paper_plots.py
 ```
 We already provide these figures in `figures/`
