@@ -1,5 +1,7 @@
 # Default target
-all: decrypt_dataset apply_patch clean
+all: prepare_dataset apply_patch
+
+prepare_dataset: decrypt_dataset extract_dataset clean
 
 # Decrypt the dataset
 decrypt_dataset:
@@ -9,12 +11,12 @@ decrypt_dataset:
 extract_dataset: decrypt_dataset
 	tar -xf data/dataset.tar -C data
 
-# Apply the patch
-apply_patch: extract_dataset
-	bash accelerate_patch/apply_patch.sh
-
 # Clean up the tar file
 clean: extract_dataset
 	rm data/dataset.tar
 
-.PHONY: all decrypt_dataset extract_dataset apply_patch clean
+# Apply the patch
+apply_patch:
+	bash accelerate_patch/apply_patch.sh
+
+.PHONY: all prepare_dataset apply_patch

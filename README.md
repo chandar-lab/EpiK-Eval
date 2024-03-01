@@ -40,3 +40,33 @@ bash configs/<model>/run_segmented.sh
 
 ## Dataset Privacy Notice
 Our dataset is provided in an encrypted format and is decrypted only during the installation process. To avoid this data leaking into training corpuses, we urge all users to exercise caution and ensure they do not inadvertently publish or push the unencrypted dataset online. As a precautionary measure, the unencrypted dataset is included in the `.gitignore` file. Your cooperation in maintaining the privacy of our dataset is greatly appreciated.
+
+## Manually Decrypt Dataset
+Our dataset is automatically decrypted during installation. If for ever reason, one wants to manually decrypt the dataset, for example, without installing our repo, one can run:
+```bash
+make prepare_dataset
+```
+For more information on the format of our dataset, see [`data/README.md`](./data/README.md)
+
+## Additional Scripts
+We provide the following three additional scripts.
+
+### Dataset Generation
+To generate a new dataset, one can run:
+```bash
+python scripts/generate_dataset.py
+```
+The default parameters generate a dataset with the same format as the one we provide. Run `python scripts/generate_dataset.py --help` for details.
+
+### Compute Benchmark Metrics
+Once a model has been benchmarked, the various metrics shown in our paper can be computed via:
+```bash
+python scripts/compute_paper_metrics.py --model_answer_logs=logs/example_log.csv
+```
+
+### Generate Paper Plots
+To recreate the plots shown in our paper, one can run:
+```bash
+python scripts/generate_paper_plots.py
+```
+We already provide these figures in `figures/`
