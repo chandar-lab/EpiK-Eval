@@ -1276,7 +1276,7 @@ def main():
             tasks_to_generate[task_num - 1] = True
 
     for task, generate in enumerate(tasks_to_generate, 1):
-        task_sampling_function = eval(f"task{task}_sample")
+        task_sampling_function = getattr(globals(), f'task{task}_sample')
         if generate:
             # Val and Test samples
             for _set in ['val', 'test']:
