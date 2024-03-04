@@ -136,12 +136,7 @@ class EvaluationDataset(torch.utils.data.IterableDataset):
         self.prompts = questions + train_doc_banners
         self.targets = answers + train_doc_stories
 
-        # Prepare batches once since always the same
-        self.batches = []
-        for i in range(0, len(self.prompts), batch_size):
-            batch = tokenizer(self.prompts[i: i + batch_size], padding=True, return_tensors='pt')
-            prompt_ids = range(i, min(i + batch_size, len(self.prompts)))
-            self.batches.append((prompt_ids, batch.input_ids, batch.attention_mask))
+        self.tokenized_prompts = tokenizer(self.prompts, padding=True, return_tensors='pt', return_length=True)
 
         train_df = pd.DataFrame({
             'set': ['train'] * len(train_doc_ids),
@@ -152,27 +147,12 @@ class EvaluationDataset(torch.utils.data.IterableDataset):
         })
         self.eval_df = pd.concat([qa_df, train_df], ignore_index=True)
 
-        self.current_batch = 0
-        self.finished = False
-
     def __iter__(self):
-        if self.finished:
-            warnings.warn('EvaluationDataset.__iter__() was called, but all questions have already been iterated.')
-            return
-
-        prompt_ids, prompts, attention_mask = self.batches[self.current_batch]
-        for i in range(prompts.shape[0]):
-            yield prompt_ids[i], prompts[i], attention_mask[i]
-
-        self.current_batch += 1
-        self.finished = self.current_batch >= len(self.batches)
+        for i in range(len(self.prompts)):
+            yield i, self.tokenized_prompts.input_ids[i], self.tokenized_prompts.attention_mask[i], self.tokenized_prompts.length[i]
 
     def __len__(self):
-        return len(self.questions)
-
-    def reset(self):
-        self.current_batch = 0
-        self.finished = False
+        return len(self.prompts)
 
 
 class TrainDataLoader(torch.utils.data.DataLoader):

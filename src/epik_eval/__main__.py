@@ -225,14 +225,17 @@ def _evaluate(
         device,
         args,
         epoch):
-
-    eval_dataloader.dataset.reset()
     model.eval()
 
     # Evaluation
     results = []
-    while True:  # We have to iterate like this, because if not, the Accelerate dataloader merges samples from different batches, which are of different lengths and thus crashes.
-        prompt_id, prompt, attention_mask, nonduplicate_mask = next(iter(eval_dataloader))
+    for batch in iter(eval_dataloader):
+        prompt_id, prompt, attention_mask, prompt_len, nonduplicate_mask = batch
+
+        # minimize padding
+        max_len = prompt_len.max().item()
+        prompt = prompt[:, -max_len:]  # padding is left side, so keep max len on right side
+        attention_mask = attention_mask[:, -max_len:]
         
         with torch.no_grad():
             output = model.generate(
@@ -243,10 +246,6 @@ def _evaluate(
                 synced_gpus=args.synced_gpus)
         
         results.append((prompt_id, output, nonduplicate_mask))
-
-        # Check if main process is finished iterating questions
-        if accelerator.gather(torch.tensor(eval_dataloader.dataset.finished, device=device)).any():
-            break
 
     results = accelerator.pad_across_processes(
         results,
@@ -287,7 +286,7 @@ def _evaluate(
 
         accuracies = {}
         for set in ['train', 'val', 'test']:
-            questions = model_answers_csv.query["`set` == @set"]
+            questions = model_answers_csv.query("`set` == @set")
             accuracies[set] = 100 * questions['correct'].sum() / len(questions['correct'])
             acc_per_task = {}
             for task in questions['task'].unique():
