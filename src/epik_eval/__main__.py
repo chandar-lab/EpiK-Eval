@@ -176,9 +176,9 @@ def _train_epoch(
 
     for batch in iter(train_dataloader):
         if args.model_type == 'causal':
-            batch, attention_mask, seq_length, _ = batch
+            batch, attention_mask, seq_length = batch
         elif args.model_type == 't5':
-            batch, attention_mask, seq_length, target, target_length, _ = batch
+            batch, attention_mask, seq_length, target, target_length = batch
 
         # Iterate minibatches. Minibatches are per device, hence we iterate here.
         for i in range(0, batch.shape[0], args.minibatch_size):
@@ -242,8 +242,7 @@ def _evaluate(
                 input_ids=prompt,
                 attention_mask=attention_mask,
                 max_new_tokens=args.answer_max_length,
-                pad_token_id=eval_tokenizer.pad_token_id,
-                synced_gpus=args.synced_gpus)
+                pad_token_id=eval_tokenizer.pad_token_id)
         
         results.append((prompt_id, output, nonduplicate_mask))
 
@@ -454,9 +453,6 @@ def main():
 
     if args.seed is not None:
         set_seed(args.seed, device_specific=True)
-
-    args.synced_gpus = (accelerator.state.deepspeed_plugin is not None and 
-                        accelerator.state.deepspeed_plugin.deepspeed_config['zero_optimization']['stage'] == 3)
 
     # Print hyperparameters
     for key, value in args.__dict__.items():

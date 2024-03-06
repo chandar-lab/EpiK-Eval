@@ -136,6 +136,13 @@ class EvaluationDataset(torch.utils.data.IterableDataset):
         self.prompts = questions + train_doc_banners
         self.targets = answers + train_doc_stories
 
+        # Add enough duplicates such that the dataset size is a multiple of the eval batch size
+        self.nonduplicate_mask = [True] * len(self.prompts)
+        if len(self.prompts) % batch_size != 0:
+            samples_to_add = batch_size - (len(self.prompts) % batch_size)
+            self.prompts += self.prompts[:samples_to_add]
+            self.nonduplicate_mask += [False] * samples_to_add
+
         self.tokenized_prompts = tokenizer(self.prompts, padding=True, return_tensors='pt', return_length=True)
 
         train_df = pd.DataFrame({
@@ -149,7 +156,7 @@ class EvaluationDataset(torch.utils.data.IterableDataset):
 
     def __iter__(self):
         for i in range(len(self.prompts)):
-            yield i, self.tokenized_prompts.input_ids[i], self.tokenized_prompts.attention_mask[i], self.tokenized_prompts.length[i]
+            yield i, self.tokenized_prompts.input_ids[i], self.tokenized_prompts.attention_mask[i], self.tokenized_prompts.length[i], self.nonduplicate_mask[i]
 
     def __len__(self):
         return len(self.prompts)

@@ -9,8 +9,7 @@ Benchmark to evaluate the capability of language models to consolidate and recal
 
 ## Requirements
 - python >= 3.10.0
-- accelerate == 0.24.1
-- deepspeed >= 0.12.3
+- accelerate >= 0.24.1
 - pandas >= 2.1.1
 - protobuf >= 4.24.4
 - pytorch >= 2.1.0
@@ -20,7 +19,6 @@ Benchmark to evaluate the capability of language models to consolidate and recal
 - wandb >= 0.15.12 *(Optional)*
 
 ## Install
-⚠️ **Warning:** Installing this package will patch the `accelerate` package. To avoid conflicts, please use a dedicated virtual environment if `accelerate` is used in other projects, and activate it before installing this repo.
 ```bash
 git clone https://github.com/chandar-lab/EpiK-Eval.git
 cd EpiK-Eval
