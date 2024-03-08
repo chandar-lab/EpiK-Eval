@@ -42,12 +42,12 @@ Our dataset is provided in an encrypted format and is decrypted only during the 
 ## Manually Decrypt Dataset
 Our dataset is automatically decrypted during installation. If for ever reason, one wants to manually decrypt the dataset, for example, without installing our repo, one can run:
 ```bash
-make prepare_dataset
+make
 ```
 For more information on the format of our dataset, see [`data/README.md`](./data/README.md)
 
 ## Additional Scripts
-We provide the following three additional scripts. Each script is meant to be ran in the `/scripts/` directory, e.g., `python generate_paper_plots.py`.
+We provide the following three additional scripts. Each script is meant to be ran in the `scripts/` directory, e.g., `python generate_paper_plots.py`.
 
 ### Dataset Generation
 To generate a new dataset, one can run:
