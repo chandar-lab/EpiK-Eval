@@ -1,0 +1,17 @@
+accelerate launch --config_file=./configs/t5-base/accelerate_config.yaml src/epik_eval/__main__.py \
+    --segment_documents \
+    --model_name='google/t5-v1_1-base' \
+    --model_type='t5' \
+    --epochs=2093 \
+    --eval_every_x_epoch=21 \
+    --lr=1e-4 \
+    --warmup_steps=3600 \
+    --total_batch_size=50 \
+    --minibatch_size=50 \
+    --gradient_accumulation_steps=1 \
+    --eval_batch_size=2150 \
+    --model_answers_csv='./logs/t5-base_segmented.csv' \
+    --answer_max_length=100 \
+    --checkpoint_directory='./checkpoints/t5-base_segmented' \
+    --checkpoint_every=21 \
+    --seed=0

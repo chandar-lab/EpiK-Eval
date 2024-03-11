@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[project]
+name = "EpiK-Eval"
+version = "0.1.0"
+description = "EpiK-Eval benchmark from https://arxiv.org/abs/2310.15372"
+authors = [{name = "Gabriele Prato", email = "gabriele.prato@mila.quebec"}, {name = "Jerry Huang", email = "jerry.huang@mila.quebec"}, {name = "Prasannna Parthasarathi"}, {name = "Shagun Sodhani"}, {name = "Sarath Chandar"}]
+license = {file = "LICENSE.txt"}
+requires-python = ">=3.10"
+dependencies = [
+    "accelerate >= 0.24.1",
+    "pandas >= 2.1.1",
+    "protobuf >= 4.24.4",
+    "torch >= 2.1.0",
+    "sentencepiece >= 0.1.99",
+    "tqdm >= 4.66.1",
+    "transformers >= 4.35.1",
+]
+
+[project.optional-dependencies]
+wandb-support = [
+    "wandb >= 0.15.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/chandar-lab/EpiK-Eval"
+Paper = "https://arxiv.org/abs/2310.15372"

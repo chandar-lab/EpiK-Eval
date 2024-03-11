@@ -1,0 +1,9 @@
+build/
+checkpoints/
+logs/
+__pycache__/
+.ipynb_checkpoints/
+dataset/
+dataset.tar
+wandb/
+*.egg-info
